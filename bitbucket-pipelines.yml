@@ -39,7 +39,7 @@ pipelines:
             # See more security tools at https://bitbucket.org/product/features/pipelines/integrations?&category=security
             - pipe: atlassian/git-secrets-scan:0.5.1
               variables:
-               FILES_IGNORED: 'set_env.sh'
+               FILES_IGNORED: '*.sh'
   branches:
     master:
     - step:
@@ -70,7 +70,7 @@ pipelines:
             # See more security tools at https://bitbucket.org/product/features/pipelines/integrations?&category=security
             - pipe: atlassian/git-secrets-scan:0.5.1
               variables:
-               FILES_IGNORED: 'set_env.sh'
+               FILES_IGNORED: '*.sh'
 
             
             
