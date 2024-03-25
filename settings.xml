@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0&#10;https://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <localRepository>/usr/share/maven/conf/repository</localRepository>
+    <servers>
+        <server>
+            <id>swr-swr-maven</id>
+            <username>aws</username>
+            <password>passwd12</password>
+        </server>
+    </servers>
+    <profiles>
+        <profile>
+            <id>swr-swr-maven</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>swr-swr-maven</id>
+                    <url>https://swr-959720979797.d.codeartifact.eu-central-1.amazonaws.com/maven/swr-maven/</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <activeProfile>swr-swr-maven</activeProfile>
+    </activeProfiles>
+</settings>

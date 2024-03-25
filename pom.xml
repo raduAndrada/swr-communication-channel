@@ -17,6 +17,14 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <distributionManagement>
+        <repository>
+            <id>swr-swr-maven</id>
+            <name>swr-swr-maven</name>
+            <url>https://swr-959720979797.d.codeartifact.eu-central-1.amazonaws.com/maven/swr-maven/</url>
+        </repository>
+    </distributionManagement>
+
     <modules>
         <module>swr-communication-channel-email</module>
     </modules>
@@ -28,9 +36,8 @@
     <packaging>pom</packaging>
 
     <properties>
-        <java.version>19</java.version>
-        <maven.compiler.source>19</maven.compiler.source>
-        <maven.compiler.target>19</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <thymeleaf.version>3.1.2.RELEASE</thymeleaf.version>
     </properties>
 

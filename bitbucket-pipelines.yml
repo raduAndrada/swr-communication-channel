@@ -1,0 +1,74 @@
+#  Template maven-publish
+
+#  This template allows to test, build and publish with Maven your Java project.
+#  The workflow allows running tests, code checkstyle and security scans on feature branches (as well as master).
+
+# Prerequisites: pom.xml and appropriate project structure should exist in the repository.
+
+image: maven:3.9.6
+
+# Workflow Configuration
+
+pipelines:
+  default:
+    - step:
+        name: Setup
+        image: atlassian/pipelines-awscli
+        script:
+           - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+           - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+           - export AWS_DEFAULT_REGION=eu-central-1
+           - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain swr --domain-owner 959720979797 --region eu-central-1 --query authorizationToken --output text`
+           - printenv > set_env.sh
+        artifacts:
+         - set_env.sh
+    - parallel:
+      - step:
+          name: maven
+          image: maven:3.9.6
+          caches:
+            - maven
+          script: # Modify the commands below to build your repository.
+            - source set_env.sh
+            - sed -i.bak 's@passwd12@'"$CODEARTIFACT_AUTH_TOKEN"'@g' settings.xml
+            - mvn clean deploy -s settings.xml
+      - step:
+          name: Security Scan
+          script:
+            # Run a security scan for sensitive data.
+            # See more security tools at https://bitbucket.org/product/features/pipelines/integrations?&category=security
+            - pipe: atlassian/git-secrets-scan:0.5.1
+  branches:
+    master:
+    - step:
+        name: Setup
+        image: atlassian/pipelines-awscli
+        script:
+          - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+          - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+          - export AWS_DEFAULT_REGION=eu-central-1
+          - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain swr --domain-owner 959720979797 --region eu-central-1 --query authorizationToken --output text`
+          - printenv > set_env.sh
+        artifacts:
+         - set_env.sh
+    - parallel:
+      - step:
+          name: Deploy to Artifactory
+          image: maven:3.9.6
+          caches:
+            - maven
+          script: # Modify the commands below to build your repository.
+            - source set_env.sh
+            - sed -i.bak 's@passwd12@'"$CODEARTIFACT_AUTH_TOKEN"'@g' settings.xml
+            - mvn clean deploy -s settings.xml
+      - step:
+          name: Security Scan
+          script:
+            # Run a security scan for sensitive data.
+            # See more security tools at https://bitbucket.org/product/features/pipelines/integrations?&category=security
+            - pipe: atlassian/git-secrets-scan:0.5.1
+              variables:
+               FILES_IGNORED: set_env.sh
+
+            
+            
