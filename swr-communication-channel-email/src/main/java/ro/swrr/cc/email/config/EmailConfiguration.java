@@ -15,6 +15,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import java.util.Locale;
 
+
 @Configuration
 @EnableWebMvc
 public class EmailConfiguration implements WebMvcConfigurer {
@@ -54,7 +55,7 @@ public class EmailConfiguration implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.of("ro", "Romania"));
+        slr.setDefaultLocale(Locale.forLanguageTag("ro"));
         return slr;
     }
 
