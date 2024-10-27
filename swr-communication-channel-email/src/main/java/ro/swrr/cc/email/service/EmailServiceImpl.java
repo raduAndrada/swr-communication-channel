@@ -80,7 +80,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     private Map<String, Object> getReservationDetailsMap(ReservationConfirmation reservationConfirmation) {
-        return new HashMap<String, Object>() {{
+        return new HashMap<>() {{
             put("name", reservationConfirmation.name());
             put("email", reservationConfirmation.email());
             put("tel", reservationConfirmation.tel());
@@ -94,7 +94,7 @@ public class EmailServiceImpl implements EmailService {
 
 
     private Map<String, Object> getReservationConfirmationMap(ReservationConfirmation reservationConfirmation) {
-        return new HashMap<String, Object>() {{
+        return new HashMap<>() {{
             put("recipientName", reservationConfirmation.name());
             put("reservationDate", reservationConfirmation.requestDate());
             put("reservationNoOfPeople", reservationConfirmation.noOfPeople());
