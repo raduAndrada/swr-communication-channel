@@ -22,6 +22,11 @@ public class EmailSenderController {
         return emailService.sendEmail(message);
     }
 
+    @PostMapping("/ar-confirmation")
+    public void sendArConfirmationEmail(@RequestParam String to, @RequestParam String name) throws MessagingException {
+        emailService.sendArConfirmation(to, name);
+    }
+
     @PostMapping("/reservations")
     public void sendReservationConfirmation(@RequestBody ReservationConfirmation reservationConfirmation, @RequestParam String lang) throws MessagingException {
         emailService.reservationConfirmation(reservationConfirmation, lang);

@@ -47,6 +47,9 @@ public class EmailServiceImpl implements EmailService {
     @Value("${communication.channel.reservation-confirmation.template.subject-en}")
     private String subjectEn;
 
+    @Value("${communication.channel.ar-confirmation.template.name}")
+    private String arConfirmationTemplateName;
+
     @Override
     public String sendEmail(EmailMessage emailMessage) {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -56,6 +59,16 @@ public class EmailServiceImpl implements EmailService {
         message.setText(emailMessage.message());
         emailSender.send(message);
         return emailMessage.message();
+    }
+
+    @Override
+    public void sendArConfirmation(String email, String name) throws MessagingException {
+        Map<String, Object> template = Map.of("name", name);
+        Context thymeleafContext = new Context();
+        thymeleafContext.setVariables(template);
+        String htmlBody = thymeleafTemplateEngine.process(arConfirmationTemplateName, thymeleafContext);
+        String subject = "Set up a meeting with me";
+        sendHtmlMessage(email, subject, htmlBody);
     }
 
     @Override

@@ -8,6 +8,7 @@ public interface EmailService {
 
     String sendEmail(EmailMessage message);
 
+    void sendArConfirmation(String email, String name) throws MessagingException;
 
     void reservationConfirmation(ReservationConfirmation reservationConfirmation, String lang) throws MessagingException;
 }
