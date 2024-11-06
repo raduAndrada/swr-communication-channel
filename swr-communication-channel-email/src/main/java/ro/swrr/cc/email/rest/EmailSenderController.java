@@ -11,11 +11,17 @@ import ro.swrr.cc.email.service.EmailService;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/communication-channel/email", produces = "application/json")
+@RequestMapping(path = "/email", produces = "application/json")
 public class EmailSenderController {
 
 
     private final EmailService emailService;
+
+    @GetMapping
+    public String test() {
+        return "Email sender is working!";
+    }
+
     @PostMapping
     public String sendEmail(@RequestBody EmailMessage message)
     {
