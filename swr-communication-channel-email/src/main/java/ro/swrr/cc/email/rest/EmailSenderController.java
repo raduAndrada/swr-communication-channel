@@ -11,7 +11,7 @@ import ro.swrr.cc.email.service.EmailService;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/communication-channel/email", produces = "application/json")
+@RequestMapping(path = "/communication-channel/email", produces = "application/json")
 public class EmailSenderController {
 
 
