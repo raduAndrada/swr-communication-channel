@@ -3,5 +3,5 @@ MAINTAINER andraduradu
 VOLUME /tmp
 EXPOSE 8902
 COPY ./target/*.jar communication-channel-email.jar
-ENTRYPOINT ["java","-jar","/communication-channel-email.jar", "--spring.profiles.active=ar"]
+ENTRYPOINT ["java","-jar","/communication-channel-email.jar"]
 
